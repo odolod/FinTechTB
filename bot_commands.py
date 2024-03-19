@@ -1,8 +1,8 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 from log import log
-from data_generator import generate
-from database import read_json, write_csv, write_json
+from database import save_user_symbol, save_user_interval
+from finance_yahoo_data import get_yahoo_symbol_name
 
 async def hello_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     log(update, 'hello_command')
@@ -10,16 +10,46 @@ async def hello_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     log(update, 'start_command')
-    await update.message.reply_text(f'Команды:\n/hello\n/setPeriod\n/settigs\n/setSymbol\n/finds\n/add\n/delete\n/update\n/start')
+    await update.message.reply_text(f'Команды:\n/hello\n/setInterval\n/settigs\n/setSymbol\n/finds\n/add\n/delete\n/update\n/start')
 
-async def generate_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    log(update, 'generate_command')
-    msg = update.message.text
-    items = msg.split()
-    n = int(items[1])
-    if n != 0: generate(n)
-    await update.message.reply_text(f'Сгенерировано {n} сотрудников')
+async def set_interval(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    log(update, 'set_interval')
+    items = update.message.text.split()
+    interval = "1d" # интервал
+    valid_interval = ["1d","5d","1mo","3mo"]
+    try:
+        interval = items[1] # интервал
+    except Exception:
+        await update.message.reply_text(f'Интервал не задан, берем по умолчанию 1d')
+    else:
+        if interval in valid_interval:   
+            await update.message.reply_text(f'Интервал {interval} установлен')
+        else:
+            await update.message.reply_text(f'Интервал {interval} неверный, допустимые: 1d, 5d, 1mo, 3mo, установлен 1d')
+            interval = "1d"
+    finally:
+        #Записываем данные интервала для пользователя.
+        save_user_interval(update.effective_user.id, update.effective_user.first_name, interval)
 
+async def set_symbol(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    log(update, 'set_symbol')
+    items = update.message.text.split()
+    symbol = "TSLA" # тикер на https://finance.yahoo.com/trending-tickers
+    try:
+        symbol = items[1] # тикер
+    except Exception:
+        await update.message.reply_text(f'Тикер не задан, берем по умолчанию TSLA')
+    else:
+        name = get_yahoo_symbol_name(symbol)
+        if name:   
+            await update.message.reply_text(f'Тикер {symbol} ({name}) установлен')
+        else:
+            await update.message.reply_text(f'Тикер {symbol} неверный, допустимые: https://finance.yahoo.com/trending-tickers, установлен TSLA')
+            symbol = "TSLA"
+    finally:
+        #Записываем данные тикера для пользователя.
+        save_user_symbol(update.effective_user.id, update.effective_user.first_name, symbol)
+    
 async def find_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     log(update, 'find_command')
     items = update.message.text.split()

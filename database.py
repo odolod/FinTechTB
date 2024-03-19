@@ -1,37 +1,39 @@
 import json
-import csv
 from pathlib import Path
 
-def read_csv() -> list:
-    employee = []
-    with open(Path.cwd() / 'database.csv', 'r', encoding='utf-8') as fin:
-        csv_reader = csv.reader(fin)
-        for row in csv_reader:
-            temp = {}
-            temp["id"] = int(row[0])
-            temp["last_name"] = row[1]
-            temp["first_name"] = row[2]
-            temp["position"] = row[3]
-            temp["phone_number"] = row[4]
-            temp["salary"] = float(row[5])
-            employee.append(temp)
-    return employee
+# UserID, UserName, Interval, Symbol
+settigs_file = 'settigs.json'
 
-def read_json() -> list:
-    employee = []
-    with open(Path.cwd() / 'database.json', 'r', encoding='utf-8') as fin:
-        for line in fin:
-            temp = json.loads(line.strip())
-            employee.append(temp)
-    return employee
+def read_settigs() -> list:
+    settigs = []
+    with open(Path.cwd() / settigs_file, 'r', encoding='utf-8') as fin:
+        settigs = json.load(fin)
+    return settigs
 
-def write_csv(employees: list):
-    with open(Path.cwd() / 'database.csv', 'w', encoding='utf-8') as fout:
-        csv_writer = csv.writer(fout)
-        for employee in employees:
-            csv_writer.writerow(employee.values())
+def write_settigs(settigs: list):
+    with open(Path.cwd() / settigs_file, 'w', encoding='utf-8') as fout:
+        fout.write(json.dumps(settigs) + '\n')
 
-def write_json(employees: list):
-    with open(Path.cwd() / 'database.json', 'w', encoding='utf-8') as fout:
-        for employee in employees:
-            fout.write(json.dumps(employee) + '\n')
+def save_user_interval(user_id, user_name, interval):
+    settings = read_settigs()
+    user = {}
+    for set in settings:
+        if set["UserID"] == user_id:
+            user = set
+    if user:
+        user["interval"] = interval
+    else:
+        settings.append({'UserID':user_id, 'UserName':user_name, 'interval':interval})
+    write_settigs(settings)
+
+def save_user_symbol(user_id, user_name, symbol):
+    settings = read_settigs()
+    user = {}
+    for set in settings:
+        if set["UserID"] == user_id:
+            user = set
+    if user:
+        user["symbol"] = symbol
+    else:
+        settings.append({'UserID':user_id, 'UserName':user_name, 'symbol':symbol})
+    write_settigs(settings)
