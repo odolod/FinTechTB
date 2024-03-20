@@ -38,3 +38,15 @@ set_interval, 2024-03-19 22:14:42.678286, 404180238, Odin26, /setInterval
 set_symbol, 2024-03-19 22:15:00.970092, 404180238, Odin26, /setSymbol
 set_symbol, 2024-03-19 22:15:25.162240, 404180238, Odin26, /setSymbol  NVDA
 set_symbol, 2024-03-19 22:15:34.335918, 404180238, Odin26, /setSymbol  NVDA12
+set_symbol, 2024-03-20 15:01:25.460335, 404180238, Odin26, /setSymbol  NVDA
+set_symbol, 2024-03-20 15:02:09.295204, 404180238, Odin26, /setSymbol  NVDA
+start_command, 2024-03-20 18:19:43.889439, 404180238, Odin26, /start
+start_command, 2024-03-20 18:25:22.523168, 404180238, Odin26, /start
+settings_command, 2024-03-20 18:25:24.869200, 404180238, Odin26, /settings
+settings_command, 2024-03-20 18:27:26.180909, 404180238, Odin26, /settings
+settings_command, 2024-03-20 18:27:41.814638, 404180238, Odin26, /settings
+settings_command, 2024-03-20 18:27:47.539958, 404180238, Odin26, /settings
+prediction_command, 2024-03-20 18:38:19.381704, 404180238, Odin26, /prediction
+load_command, 2024-03-20 18:38:22.534134, 404180238, Odin26, /load
+load_command, 2024-03-20 18:38:46.189102, 404180238, Odin26, /load
+load_command, 2024-03-20 18:41:22.316748, 404180238, Odin26, /load

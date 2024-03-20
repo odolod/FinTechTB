@@ -99,7 +99,7 @@ def get_yahoo_chart(symbol, interval):
 #cookie = get_yahoo_cookie()
 #crumb = get_yahoo_crumb(cookie)
 #quote = get_yahoo_quote('GAZP.ME')
-#chart = get_yahoo_chart('GAZP.ME',"3mo",crumb,cookie)
+#chart = get_yahoo_chart('GAZP.ME',"3mo")
 
-#print(get_yahoo_symbol_name('GAZP.ME'))
+#print(chart)
 
