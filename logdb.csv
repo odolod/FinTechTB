@@ -50,3 +50,16 @@ prediction_command, 2024-03-20 18:38:19.381704, 404180238, Odin26, /prediction
 load_command, 2024-03-20 18:38:22.534134, 404180238, Odin26, /load
 load_command, 2024-03-20 18:38:46.189102, 404180238, Odin26, /load
 load_command, 2024-03-20 18:41:22.316748, 404180238, Odin26, /load
+start_command, 2024-03-20 18:51:19.360533, 517311202, Тимур, /start
+load_command, 2024-03-20 18:52:16.262849, 517311202, Тимур, /load
+set_interval_command, 2024-03-20 18:52:18.810925, 517311202, Тимур, /setInterval
+settings_command, 2024-03-20 18:52:24.994350, 517311202, Тимур, /settings
+settings_command, 2024-07-25 14:07:11.894129, 404180238, Odin26, /settings
+set_symbol_command, 2024-07-25 14:07:57.883466, 404180238, Odin26, /setSymbol ^IXIC
+settings_command, 2024-07-25 14:08:31.243924, 404180238, Odin26, /settings
+start_command, 2024-07-25 14:08:56.031697, 404180238, Odin26, /Start
+hello_command, 2024-07-25 14:09:04.228677, 404180238, Odin26, /hello
+load_command, 2024-07-25 14:09:30.242897, 404180238, Odin26, /load
+prediction_command, 2024-07-25 14:09:44.674082, 404180238, Odin26, /prediction
+set_symbol_command, 2024-07-25 14:10:37.318790, 404180238, Odin26, /setsymbol BTC-USD
+load_command, 2024-07-25 14:10:49.307445, 404180238, Odin26, /load
