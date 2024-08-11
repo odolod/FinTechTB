@@ -1,8 +1,10 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 from log import log
+import pandas as pd
 from database import save_user_symbol, save_user_interval, load_user_settings, load_chart_data, save_chart_data
 from finance_yahoo_data import get_yahoo_symbol_name, get_yahoo_chart
+from neuro import load_data, predict_ta_lstm
 
 async def hello_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     log(update, 'hello_command')
@@ -80,4 +82,18 @@ async def load_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 async def prediction_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     log(update, 'prediction_command')
-    await update.message.reply_text(f'TODO: сделать магию!')
+    settings = load_user_settings(update.effective_user.id)
+    if settings:
+        symbol = settings["symbol"]
+        interval = settings["interval"]
+        if symbol and interval:
+            await update.message.reply_text(f'Настройки найдены. просим подождать предсказания...')
+            print("~~~1", symbol, interval)
+            name = get_yahoo_symbol_name(symbol)
+            price = predict_ta_lstm(symbol, interval)
+            await update.message.reply_text(f'Предсказанная стоимость {name} на следудующий интервал составит: {price[0][0]}')
+        else:
+            await update.message.reply_text(f'Проверьте настройки. Не получилось предсказать.')            
+    else:
+        await update.message.reply_text(f'Hастройки не найдены. Предсказание невозможно.')
+    #await update.message.reply_text(f'TODO: сделать магию!')
