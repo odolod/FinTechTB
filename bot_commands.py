@@ -87,13 +87,13 @@ async def prediction_command(update: Update, context: ContextTypes.DEFAULT_TYPE)
         symbol = settings["symbol"]
         interval = settings["interval"]
         if symbol and interval:
+            df = load_data(symbol, interval)
             await update.message.reply_text(f'Настройки найдены. просим подождать предсказания...')
-            print("~~~1", symbol, interval)
             name = get_yahoo_symbol_name(symbol)
-            price = predict_ta_lstm(symbol, interval)
+            price = predict_ta_lstm(df)
             await update.message.reply_text(f'Предсказанная стоимость {name} на следудующий интервал составит: {price[0][0]}')
         else:
             await update.message.reply_text(f'Проверьте настройки. Не получилось предсказать.')            
     else:
         await update.message.reply_text(f'Hастройки не найдены. Предсказание невозможно.')
-    #await update.message.reply_text(f'TODO: сделать магию!')
+    

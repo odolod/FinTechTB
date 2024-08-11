@@ -58,15 +58,11 @@ def predict_lstm(df):
 
     return x_train, y_train
 
-def predict_ta_lstm(symbol, interval):
+def predict_ta_lstm(df):
     # загрузка данных
-    print("~~~2", symbol, interval)
-    df = load_data(symbol, interval)
-    #print(df.head)
+    #df = load_data(symbol, interval)
     # подготовка данных
     data = df
-    print("df",df.head)
-    print("data1",data.head)
     # добавим несколько технических индикаторов, таких как RSI и скользящие средние
     data['rsi'] = ta.rsi(data.Close, length=15)
     data['ema_20'] = ta.ema(data.Close, length=20)
