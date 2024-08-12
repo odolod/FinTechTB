@@ -75,8 +75,8 @@ def predict_ta_lstm(df):
 
     y = data['Close']
     del data['Close']
-    del data['Dividends']
-    del data['Stock Splits']
+    #del data['Dividends']
+    #del data['Stock Splits']
     
     print("data3",data.head)
     # scaling data
